@@ -14,9 +14,31 @@
 enum Cell { Off, On }
 
 // A matrix is a 2D array of slots
-type Matrix = Array<Array<Cell>>;
+export class Matrix {
+    width: number;
+    height: number;
+    array: Array<Array<Cell>>;
 
-export function makeMatrix(width: number, height: number): Matrix {
+    constructor(width: number, height: number) {
+        this.width = width;
+        this.height = height;
+        this.array = makeMatrix(width, height);
+    }
+
+    turnOn(x: number, y: number): Matrix {
+        let matrix = new Matrix(this.width, this.height);
+        matrix.array[x][y] = Cell.On
+        return matrix
+    }
+
+    turnOff(x: number, y: number): Matrix {
+        let matrix = new Matrix(this.width, this.height);
+        matrix.array[x][y] = Cell.Off
+        return matrix
+    }
+}
+
+export function makeMatrix(width: number, height: number): Array<Array<Cell>> {
     // Instantiate an array of columns of cells
     let array = new Array<Array<Cell>>(width);
 
