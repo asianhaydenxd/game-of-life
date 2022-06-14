@@ -5,28 +5,41 @@ const height = 40;
 const generationMethod = () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off
 const generateMatrix = () => game.makeMatrix(width, height, generationMethod);
 
-let matrix = generateMatrix();
-let playing: boolean = false;
+let matrix = generateMatrix(); // Starting matrix
+let playing: boolean = false; // Has the play button been pressed?
 
+// Generate the grid to be displayed on the site upon loading
 generateGrid(matrix);
 
+// When the Play button is clicked, the matrix should start iterating on its own.
+// When the Pause button is clicked, the matrix's iteration is halted.
 document.getElementById("pause")?.addEventListener("click", () => {
     playing = !playing;
-
     document.getElementById("pause")!.innerHTML = playing ? "Pause" : "Play";
-
-    generateWait(100);
+    playLoop();
 });
 
+// When the Restart button is clicked, it should reset the matrix to an original random state.
 document.getElementById("refresh")?.addEventListener("click", () => {
-    matrix = game.makeMatrix(width, height, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
+    matrix = generateMatrix();
     generateGrid(matrix);
 });
 
+// When the Next Generation button is clicked, it should take the matrix to the next generation.
 document.getElementById("nextgen")?.addEventListener("click", () => {
     matrix = game.iterateMatrix(matrix);
     generateGrid(matrix);
 });
+
+// Repeatedly update the grid until it is no longer in play
+async function playLoop() {
+    while (playing) {
+        generateGrid(matrix);
+        matrix = game.iterateMatrix(matrix);
+        await new Promise(resolve => setTimeout(resolve, 100));
+    }
+}
+
 
 function generateGrid(matrix: game.Matrix): HTMLElement | null {
     const grid = document.getElementById("grid")
@@ -53,12 +66,4 @@ function generateGrid(matrix: game.Matrix): HTMLElement | null {
     }
 
     return grid;
-}
-
-async function generateWait(ms: number) {
-    while (playing) {
-        generateGrid(matrix);
-        matrix = game.iterateMatrix(matrix);
-        await new Promise(resolve => setTimeout(resolve, ms));
-    }
 }
