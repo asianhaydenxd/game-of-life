@@ -64,6 +64,14 @@ function generateGrid(matrix: game.Matrix): HTMLElement | null {
             const cell = document.createElement("div");
             cell.className = `cell onstate${matrix[j][i]}`;
             cell.id = `coords ${j},${i}`;
+
+            // When a cell is clicked, it will switch its cell state
+            cell.addEventListener("click", function () {
+                if (!playing) {
+                    if (this.className == "cell onstate0") this.className = "cell onstate1"
+                    else if (this.className == "cell onstate1") this.className = "cell onstate0"
+                }
+            });
             
             row.appendChild(cell);
         }
