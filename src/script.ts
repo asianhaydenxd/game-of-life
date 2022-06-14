@@ -5,6 +5,10 @@ let matrix = game.makeMatrix(5, 5, () => Math.random() < 0.5 ? game.Cell.On : ga
 function generateGrid(matrix: game.Matrix): HTMLElement | null {
     const grid = document.getElementById("grid")
 
+    while (grid?.firstChild) {
+        grid.removeChild(grid.firstChild);
+    }
+
     // Generate row and cell divs within grid
     // Number of rows is the same as the length of a column
     for (let i = 0; i < matrix[0].length; i++) {
