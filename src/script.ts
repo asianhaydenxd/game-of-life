@@ -2,7 +2,7 @@ import * as game from "./game.js";
 
 let matrix = game.makeMatrix(5, 5, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
 
-function generateGrid(matrix: game.Matrix) {
+function generateGrid(matrix: game.Matrix): HTMLElement | null {
     const grid = document.getElementById("grid")
 
     // Generate row and cell divs within grid
@@ -21,6 +21,8 @@ function generateGrid(matrix: game.Matrix) {
 
         grid?.appendChild(row);
     }
+
+    return grid;
 }
 
 generateGrid(matrix);
