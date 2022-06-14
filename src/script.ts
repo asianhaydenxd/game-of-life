@@ -29,4 +29,24 @@ function generateGrid(matrix: game.Matrix): HTMLElement | null {
     return grid;
 }
 
+let playing: boolean = false;
+
 generateGrid(matrix);
+
+document.getElementById("pause")?.addEventListener("click", () => {
+    playing = !playing;
+
+    document.getElementById("pause")!.innerHTML = playing ? "Pause" : "Play";
+
+    generateWait(100);
+});
+
+async function generateWait(ms: number) {
+    while (playing) {
+        generateGrid(matrix);
+        matrix = game.iterateMatrix(matrix);
+        await new Promise(resolve => setTimeout(resolve, ms));
+    }
+}
+
+// generate(1000);
