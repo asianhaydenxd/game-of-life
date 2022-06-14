@@ -1,6 +1,9 @@
 import * as game from "./game.js";
 
-let matrix = game.makeMatrix(40, 40, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
+const width = 40;
+const height = 40
+
+let matrix = game.makeMatrix(width, height, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
 
 function generateGrid(matrix: game.Matrix): HTMLElement | null {
     const grid = document.getElementById("grid")
@@ -49,4 +52,7 @@ async function generateWait(ms: number) {
     }
 }
 
-// generate(1000);
+document.getElementById("refresh")?.addEventListener("click", () => {
+    matrix = game.makeMatrix(width, height, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
+    generateGrid(matrix);
+});
