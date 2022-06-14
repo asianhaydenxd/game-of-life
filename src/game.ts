@@ -31,5 +31,45 @@ export function makeMatrix(width: number, height: number): Matrix {
         }
     }
 
-    return array
+    return array;
+}
+
+// Count the number of live neighbors around a coordinate on a matrix
+export function getLiveNeighbors(x: number, y: number, matrix: Matrix): number {
+    let count: number = 0;
+    
+    for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+            if (i + x < 0 || matrix.length    <= i + x) continue;
+            if (j + y < 0 || matrix[0].length <= j + y) continue;
+            if (i == 0 && j == 0) continue;
+
+            if (matrix[x+i][y+j] == Cell.On) count++;
+        }
+    }
+    
+    return count;
+}
+
+// Return the matrix after a generation
+export function iterateMatrix(matrix: Matrix): Matrix {
+    let newMatrix = makeMatrix(matrix.length, matrix[0].length);
+
+    // Iterate through every cell
+    for (let x = 0; x < matrix.length; x++) {
+        for (let y = 0; y < matrix[x].length; y++) {
+            const liveNeighbors = getLiveNeighbors(x, y, matrix)
+
+            if (
+                (matrix[x][y] == Cell.On  && (liveNeighbors == 2 || liveNeighbors == 3)) ||
+                (matrix[x][y] == Cell.Off && liveNeighbors == 3)
+            ) {
+                newMatrix[x][y] = Cell.On;
+            } else {
+                newMatrix[x][y] = Cell.Off;
+            }
+        }
+    }
+
+    return newMatrix;
 }
