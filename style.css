@@ -8,7 +8,7 @@
 #grid {
     width: fit-content;
     background-color: black;
-    padding: 2px;
+    padding: 1px;
 }
 
 .row {
@@ -16,9 +16,9 @@
 }
 
 .cell {
-    width: 5vw;
-    height: 5vw;
-    margin: 2px;
+    width: 1vw;
+    height: 1vw;
+    margin: 1px;
     display: inline-block;
 }
 

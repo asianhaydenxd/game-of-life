@@ -1,6 +1,6 @@
 import * as game from "./game.js";
 
-let matrix = game.makeMatrix(5, 5, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
+let matrix = game.makeMatrix(40, 40, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
 
 function generateGrid(matrix: game.Matrix): HTMLElement | null {
     const grid = document.getElementById("grid")
