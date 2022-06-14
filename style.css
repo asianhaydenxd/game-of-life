@@ -1,0 +1,31 @@
+#container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+#grid {
+    width: fit-content;
+    background-color: black;
+    padding: 2px;
+}
+
+.row {
+    line-height: 0px;
+}
+
+.cell {
+    width: 5vw;
+    height: 5vw;
+    margin: 2px;
+    display: inline-block;
+}
+
+.onstate1 {
+    background-color: black;
+}
+
+.onstate0 {
+    background-color: white;
+}
