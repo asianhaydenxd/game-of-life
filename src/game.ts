@@ -17,7 +17,7 @@ export enum Cell { Off, On }
 type Matrix = Array<Array<Cell>>;
 
 // Create a blank matrix
-export function makeMatrix(width: number, height: number): Matrix {
+export function makeMatrix(width: number, height: number, generate: () => Cell): Matrix {
     // Instantiate an array of columns of cells
     let array = new Array<Array<Cell>>(width);
 
@@ -27,7 +27,7 @@ export function makeMatrix(width: number, height: number): Matrix {
 
         // Instantiate the columns' cells
         for (let j: number = 0; j < height; j++) {
-            array[i][j] = Cell.Off;
+            array[i][j] = generate();
         }
     }
 
@@ -53,7 +53,7 @@ export function getLiveNeighbors(x: number, y: number, matrix: Matrix): number {
 
 // Return the matrix after a generation
 export function iterateMatrix(matrix: Matrix): Matrix {
-    let newMatrix = makeMatrix(matrix.length, matrix[0].length);
+    let newMatrix = makeMatrix(matrix.length, matrix[0].length, () => Cell.Off);
 
     // Iterate through every cell
     for (let x = 0; x < matrix.length; x++) {
