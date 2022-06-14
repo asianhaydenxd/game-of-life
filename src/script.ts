@@ -5,6 +5,28 @@ const height = 40
 
 let matrix = game.makeMatrix(width, height, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
 
+let playing: boolean = false;
+
+generateGrid(matrix);
+
+document.getElementById("pause")?.addEventListener("click", () => {
+    playing = !playing;
+
+    document.getElementById("pause")!.innerHTML = playing ? "Pause" : "Play";
+
+    generateWait(100);
+});
+
+document.getElementById("refresh")?.addEventListener("click", () => {
+    matrix = game.makeMatrix(width, height, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
+    generateGrid(matrix);
+});
+
+document.getElementById("nextgen")?.addEventListener("click", () => {
+    matrix = game.iterateMatrix(matrix);
+    generateGrid(matrix);
+});
+
 function generateGrid(matrix: game.Matrix): HTMLElement | null {
     const grid = document.getElementById("grid")
 
@@ -32,18 +54,6 @@ function generateGrid(matrix: game.Matrix): HTMLElement | null {
     return grid;
 }
 
-let playing: boolean = false;
-
-generateGrid(matrix);
-
-document.getElementById("pause")?.addEventListener("click", () => {
-    playing = !playing;
-
-    document.getElementById("pause")!.innerHTML = playing ? "Pause" : "Play";
-
-    generateWait(100);
-});
-
 async function generateWait(ms: number) {
     while (playing) {
         generateGrid(matrix);
@@ -51,13 +61,3 @@ async function generateWait(ms: number) {
         await new Promise(resolve => setTimeout(resolve, ms));
     }
 }
-
-document.getElementById("refresh")?.addEventListener("click", () => {
-    matrix = game.makeMatrix(width, height, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
-    generateGrid(matrix);
-});
-
-document.getElementById("nextgen")?.addEventListener("click", () => {
-    matrix = game.iterateMatrix(matrix);
-    generateGrid(matrix);
-});
