@@ -34,15 +34,15 @@ document.getElementById("nextgen")?.addEventListener("click", () => {
 // Repeatedly update the grid until it is no longer in play
 async function playLoop() {
     // Get slider setting for play speed
-    const slider = parseInt((<HTMLInputElement>document.getElementById("speed")).value)
+    const slider = () => parseInt((<HTMLInputElement>document.getElementById("speed")).value)
 
     // From 0 to 500 ms (half a second)
-    const rate = 500 - (5 * slider) // Multiplied by 5 because the original slider value is 0-100, so 100*5=500
+    const rate = () => 500 - (5 * slider()) // Multiplied by 5 because the original slider value is 0-100, so 100*5=500
 
     while (playing) {
         generateGrid(matrix);
         matrix = game.iterateMatrix(matrix);
-        await new Promise(resolve => setTimeout(resolve, rate));
+        await new Promise(resolve => setTimeout(resolve, rate()));
     }
 }
 
