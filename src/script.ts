@@ -1,10 +1,11 @@
 import * as game from "./game.js";
 
 const width = 40;
-const height = 40
+const height = 40;
+const generationMethod = () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off
+const generateMatrix = () => game.makeMatrix(width, height, generationMethod);
 
-let matrix = game.makeMatrix(width, height, () => Math.random() < 0.5 ? game.Cell.On : game.Cell.Off);
-
+let matrix = generateMatrix();
 let playing: boolean = false;
 
 generateGrid(matrix);
