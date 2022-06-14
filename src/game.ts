@@ -10,7 +10,7 @@
  * to life, otherwise it stays dead.
  */
 
-// Each cell of the matrix is
+// Each cell of the matrix is either off or on
 export enum Cell { Off, On }
 
 // A matrix is a 2D array of slots
