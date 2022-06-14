@@ -14,7 +14,7 @@
 export enum Cell { Off, On }
 
 // A matrix is a 2D array of slots
-type Matrix = Array<Array<Cell>>;
+export type Matrix = Array<Array<Cell>>;
 
 // Create a blank matrix
 export function makeMatrix(width: number, height: number, generate: () => Cell): Matrix {
