@@ -11,7 +11,7 @@
  */
 
 // Each cell of the matrix is
-enum Cell { Off, On }
+export enum Cell { Off, On }
 
 // A matrix is a 2D array of slots
 type Matrix = Array<Array<Cell>>;
